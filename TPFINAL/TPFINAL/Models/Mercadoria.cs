@@ -38,13 +38,6 @@ namespace TPFINAL.Models
             }
         }
 
- //       public int UpdateMercadoria(Mercadoria mercadoria)
- //       {
- //           lock (locker)
- //           {
- //               
- //           }
- //       }
         public IEnumerable<Mercadoria> GetMercadorias()
         {
             lock (locker)
@@ -57,8 +50,7 @@ namespace TPFINAL.Models
         {
             lock (locker)
             {
-                // return database.Query< Aluno>("SELECT * FROM [Mercadoria] WHERE[NCM] = " + NCM);
-            return database.Table<Mercadoria>().Where(c => c.NCM == NCM).FirstOrDefault();
+                return database.Table<Mercadoria>().Where(c => c.NCM == NCM).FirstOrDefault();
             }
         }
         public int RemoverMercadoria(int NCM)

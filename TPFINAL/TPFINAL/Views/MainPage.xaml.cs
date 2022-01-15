@@ -14,37 +14,31 @@ using TPFINAL.Views;
 namespace TPFINAL
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : ContentPage
-    {
+    public partial class MainPage : ContentPage {
         MercadoriaViewModel vmMercadoria;
-        public MainPage()
-        {
+        public MainPage() {
             vmMercadoria = new MercadoriaViewModel();
             BindingContext = vmMercadoria;
             InitializeComponent();
         }
-        protected override void OnAppearing()
-        {
+        protected override void OnAppearing() {
             vmMercadoria = new MercadoriaViewModel();
             BindingContext = vmMercadoria;
             base.OnAppearing();
         }
-        private void OnNovo(object sender, EventArgs args)
-        {
+        private void OnNovo(object sender, EventArgs args) {
             Navigation.PushAsync(new NovaMercadoria());
         }
 
-        private void OnAutores(object sender, EventArgs args)
-        {
-            DisplayAlert("Autores", "Lorrane Meneses - Igor Nicolas", "OK");
+        private void OnAutores(object sender, EventArgs args) {
+            DisplayAlert("Autores", "Alef Ribeiro - Lucas Guazzelli", "OK");
         }
 
-        async private void OnMercadoriaTapped(object sender, ItemTappedEventArgs args)
-        {
+        async private void OnMercadoriaTapped(object sender, ItemTappedEventArgs args) {
             var selecionado = args.Item as Mercadoria;
             string action = await DisplayActionSheet(selecionado.Nome, "Cancelar", "Deletar", "Editar");
-            switch (action)
-            {
+
+            switch (action) {
                 case "Deletar":
                     vmMercadoria.DeletarMercadoria(selecionado);
                     await Navigation.PushAsync(new MainPage());
@@ -56,26 +50,21 @@ namespace TPFINAL
             }
         }
 
-        async private void OnCoord(object sender, EventArgs e)
-        {
-            try
-            {
+        async private void OnCoord(object sender, EventArgs e) {
+            try {
                 var localizacao = await Geolocation.GetLastKnownLocationAsync();
-                if (localizacao != null)
-                {                                 
+
+                if (localizacao != null) {                                 
                     await DisplayAlert("Localização", "Latitude: " + localizacao.Latitude.ToString() + "\nLongitude: " + localizacao.Longitude.ToString(), "OK");
                 }
             }
-            catch (FeatureNotSupportedException fnsEx)
-            {
+            catch (FeatureNotSupportedException fnsEx) {
                 await DisplayAlert("Erro ", fnsEx.Message, "Ok");
             }
-            catch (PermissionException pEx)
-            {
+            catch (PermissionException pEx) {
                 await DisplayAlert("Erro: ", pEx.Message, "Ok");
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 await DisplayAlert("Erro : ", ex.Message, "Ok");
             }
         }
