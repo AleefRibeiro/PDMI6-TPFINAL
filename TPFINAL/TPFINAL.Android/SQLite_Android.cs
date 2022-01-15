@@ -16,7 +16,7 @@ namespace XF.LocalDB.Droid
         public SQLite.SQLiteConnection
         GetConexao()
         {
-            var arquivodb = "ifspdb.db3";
+            var arquivodb = "ifspdb1.db3";
             string caminho =
             System.Environment.GetFolderPath
             (System.Environment.SpecialFolder.Personal);
